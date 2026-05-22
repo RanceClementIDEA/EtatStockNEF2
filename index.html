@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <title>NEF2 – Visualisation des Stocks (Optimisé)</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Librairies -->
+    <script src="xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- App optimisée -->
+    <script defer src="app.js"></script>
+</head>
+
+<body>
+
+<!-- ============================ HEADER ============================ -->
+<header id="appHeader">
+    <span class="sapIcon"></span>
+    <h1>NEF2 – Visualisation des Stocks</h1>
+</header>
+
+<!-- ============================ TOOLBAR ============================ -->
+<div id="toolbar">
+
+    <!-- Import Excel -->
+    <label class="fioriBtn">
+        <span class="sapIcon"></span>
+        Import Stock
+        <input type="file" id="fileInput" hidden accept=".xlsx">
+    </label>
+
+<label class="fioriBtn">
+    Import Sorties
+    <input type="file" id="expeditionsInput" hidden accept=".xlsx">
+</label>
+
+    <!-- Recherche texte -->
+    <input id="filterText" type="text" placeholder="Recherche…">
+
+    <!-- Onglets -->
+    <button id="btnTable" class="fioriTab">
+        <span class="sapIcon"></span> Tableau
+    </button>
+
+    <button id="btnPlan" class="fioriTab">
+        <span class="sapIcon"></span> Plan 2D
+    </button>
+
+    <button id="btnDashboard" class="fioriTab">
+        <span class="sapIcon"></span> Dashboard
+    </button>
+
+<button id="btnFamille" class="fioriTab">
+    <span class="sapIcon"></span> Familles
+</button>
+
+
+</div>
+
+<!-- ============================ TOOLBAR FILTERS ============================ -->
+<div id="toolbarFilters">
+
+    <!-- Allées -->
+    <div class="filter-group" id="filterA">
+        <div class="filter-title">Allées</div>
+        <div class="filter-content">
+            <label><input type="checkbox" value="A"> A</label>
+            <label><input type="checkbox" value="B"> B</label>
+            <label><input type="checkbox" value="C"> C</label>
+            <label><input type="checkbox" value="D"> D</label>
+            <label><input type="checkbox" value="E"> E</label>
+            <label><input type="checkbox" value="F"> F</label>
+            <label><input type="checkbox" value="G"> G</label>
+            <label><input type="checkbox" value="H"> H</label>
+            <label><input type="checkbox" value="I"> I</label>
+            <label><input type="checkbox" value="J"> J</label>
+            <label><input type="checkbox" value="K"> K</label>
+            <label><input type="checkbox" value="L"> L</label>
+            <label><input type="checkbox" value="M"> M</label>
+            <label><input type="checkbox" value="N"> N</label>
+        </div>
+    </div>
+
+    <!-- Travées -->
+    <div class="filter-group" id="filterT">
+        <div class="filter-title">Travées</div>
+        <div class="filter-content">
+            <label><input type="checkbox" value="1"> 1</label>
+            <label><input type="checkbox" value="2"> 2</label>
+            <label><input type="checkbox" value="3"> 3</label>
+            <label><input type="checkbox" value="4"> 4</label>
+            <label><input type="checkbox" value="5"> 5</label>
+            <label><input type="checkbox" value="6"> 6</label>
+            <label><input type="checkbox" value="7"> 7</label>
+            <label><input type="checkbox" value="8"> 8</label>
+            <label><input type="checkbox" value="9"> 9</label>
+            <label><input type="checkbox" value="10"> 10</label>
+            <label><input type="checkbox" value="11"> 11</label>
+            <label><input type="checkbox" value="12"> 12</label>
+            <label><input type="checkbox" value="13"> 13</label>
+            <label><input type="checkbox" value="14"> 14</label>
+            <label><input type="checkbox" value="15"> 15</label>
+            <label><input type="checkbox" value="16"> 16</label>
+        </div>
+    </div>
+
+    <!-- Niveaux -->
+    <div class="filter-group" id="filterN">
+        <div class="filter-title">Niveaux</div>
+        <div class="filter-content">
+            <label><input type="checkbox" value="A"> A</label>
+            <label><input type="checkbox" value="B"> B</label>
+            <label><input type="checkbox" value="C"> C</label>
+            <label><input type="checkbox" value="D"> D</label>
+            <label><input type="checkbox" value="E"> E</label>
+            <label><input type="checkbox" value="F"> F</label>
+            <label><input type="checkbox" value="G"> G</label>
+            <label><input type="checkbox" value="H"> H</label>
+            <label><input type="checkbox" value="I"> I</label>
+            <label><input type="checkbox" value="J"> J</label>
+        </div>
+    </div>
+
+    <!-- Position -->
+    <div class="filter-group" id="filterPos">
+        <div class="filter-title">Position</div>
+        <div class="filter-content">
+            <label><input type="checkbox" value="1"> 1</label>
+            <label><input type="checkbox" value="2"> 2</label>
+            <label><input type="checkbox" value="3"> 3</label>
+            <label><input type="checkbox" value="4"> 4</label>
+        </div>
+    </div>
+
+    <!-- Statut -->
+    <div class="filter-group" id="filterStatus">
+        <div class="filter-title">Statut</div>
+        <div class="filter-content">
+            <label><input type="checkbox" value="plein"> Plein</label>
+            <label><input type="checkbox" value="moyen"> Moyen</label>
+            <label><input type="checkbox" value="faible"> Faible</label>
+            <label><input type="checkbox" value="vide"> Vide</label>
+        </div>
+    </div>
+
+    <!-- Gestionnaire -->
+    <div class="filter-group" id="filterGest">
+        <div class="filter-title">Gestionnaire</div>
+        <div class="filter-content">
+            <!-- Rempli dynamiquement en JS -->
+        </div>
+    </div>
+<div class="filter-group" id="filterFamille">
+    <div class="filter-title">Famille</div>
+    <div class="filter-content"></div>
+</div>
+
+</div>
+
+<!-- ============================ PANEL STATS ============================ -->
+<aside id="sideStats" class="closed">
+    <div class="sideHeader">
+        <span class="sapIcon"></span>
+        <h2>Statistiques</h2>
+    </div>
+  
+<div class="statItem">
+    <span>Taux remplissage (global)</span>
+    <strong id="sideFillRate">0%</strong>
+</div>
+
+<div class="statItem">
+    <span>Taux remplissage (sur occupés)</span>
+    <strong id="sideFillRateOccupied">0%</strong>
+</div>
+
+<div class="statItem statSub">
+    <span>Base rotation</span>
+    <strong id="rotationInfo">
+        Rotation calculée sur 1 an
+    </strong>
+</div>
+
+    <div class="statItem">
+        <span>Emplacements filtrés</span>
+        <strong id="sideCount">0</strong>
+    </div>
+
+    <div class="statItem">
+        <span>Stock total filtré</span>
+        <strong id="sideQty">0</strong>
+    </div>
+<div class="statItem">
+    <span>Références totales</span>
+    <strong id="statTotalRefs">0</strong>
+</div>
+
+<div class="statItem">
+    <span>Références visibles</span>
+    <strong id="statFilteredRefs">0</strong>
+</div>
+
+    <h3>Status</h3>
+    <canvas id="statusChart"></canvas>
+</aside>
+
+<div id="statsToggle">
+    <span class="sapIcon"></span>
+</div>
+
+<!-- ============================ CONTENU ============================ -->
+<main>
+
+    <!-- ===== TABLEAU ===== -->
+    <section id="tableView" class="tab active">
+        <div id="tableWrapper" class="fioriCard">
+            <table id="tableStock">
+                <thead>
+                    <tr>
+                        <th>Empl.</th>
+                        <th>A</th>
+                        <th>T</th>
+                        <th>N</th>
+                        <th>Pos</th>
+                        <th>Article(s)</th>
+                        <th>Qté tot</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
+
+        <div id="pagination" class="fioriPagination">
+            <button id="pagePrev">⟨</button>
+            <span id="pageInfo"></span>
+            <button id="pageNext">⟩</button>
+        </div>
+    </section>
+
+    <!-- ===== PLAN 2D ===== -->
+    <section id="planView" class="tab">
+        <canvas id="plan2d" width="3000" height="2000"></canvas>
+        <div id="tooltip"></div>
+    </section>
+
+    <!-- ===== DASHBOARD ===== -->
+    <section id="dashboardView" class="tab">
+        <h2>Dashboard – KPI & Graphiques</h2>
+
+<!-- ===== DASHBOARD MODE ===== -->
+<div class="dashboard-mode">
+    <label for="dashboardMode">Mode d’analyse :</label>
+    <select id="dashboardMode">
+        <option value="locations">Par emplacements</option>
+        <option value="articles">Par articles</option>
+    </select>
+</div>
+
+        <div class="dashboard-charts">
+    <div class="chart-card">
+        <h3>Répartition des statuts</h3>
+        <canvas id="chartStatus"></canvas>
+    </div>
+
+    <div class="chart-card">
+        <h3>Stock par allée</h3>
+        <canvas id="chartAllee"></canvas>
+    </div>
+
+    <div class="chart-card">
+        <h3>Top 10 articles</h3>
+        <canvas id="chartTop10"></canvas>
+    </div>
+
+    <div class="chart-card">
+        <h3>Top 5 gestionnaires</h3>
+        <canvas id="chartGest" height="180"></canvas>
+    </div>
+</div>
+
+<!-- ✅ LES LISTES À PART -->
+<div class="dashboard-lists">
+    <div class="dashboardCard">
+        <h3>Top 5 rotations</h3>
+        <ul id="topRotationList" class="topRotationList"></ul>
+    </div>
+
+    <div class="dashboardCard">
+        <h3>Top 5 articles dormants</h3>
+        <ul id="topDormantList" class="topRotationList"></ul>
+    </div>
+</div>
+    </section>
+
+<section id="familleView" class="tab">
+    <h2>Analyse par famille</h2>
+
+    <div class="famille-wrapper">
+        <table class="data-table famille-table">
+            <thead>
+                <tr>
+                    <th>Famille</th>
+                    <th>Articles distincts</th>
+                    <th>Actifs</th>
+                    <th>Stock total</th>
+                    <th>Rotation moy.</th>
+                    <th>Rotation max</th>
+                    <th>Top article</th>
+                    <th>% dormants</th>
+                    <th>Ratio stock/rot.</th>
+                    <th>Score BI</th>
+                </tr>
+            </thead>
+            <tbody id="familleTableBody"></tbody>
+        </table>
+    </div>
+</section>
+
+</main>
+
+</body>
+</html>

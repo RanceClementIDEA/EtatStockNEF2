@@ -1,0 +1,961 @@
+/* ============================================================
+   SAP Fiori — Variables + Thème global
+============================================================ */
+@font-face {
+    font-family: "SAP-icons";
+    src: url("fonts/SAP-icons.ttf") format("truetype");
+}
+
+:root {
+    --sapPrimary: #0a6ed1;
+    --sapPrimaryHover: #085caf;
+    --sapPrimaryActive: #064a8c;
+
+    --sapBg: #f5f7fa;
+    --sapCard: #ffffff;
+    --sapTile: #ffffff;
+
+    --sapBorder: #d4d8dd;
+    --sapSeparator: #c8ccd2;
+
+    --sapText: #2a2d34;
+    --sapSubtle: #5b5f67;
+
+    --sapShadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+
+/* Dark mode optimisé */
+body.dark {
+    --sapPrimary: #91c8ff;
+    --sapPrimaryHover: #7ab2e6;
+    --sapPrimaryActive: #5d92c7;
+
+    --sapBg: #1c1f23;
+    --sapCard: #25292e;
+    --sapTile: #2a2f34;
+
+    --sapBorder: #3b4046;
+    --sapSeparator: #50565f;
+
+    --sapText: #e5e8ec;
+    --sapSubtle: #aeb3ba;
+
+    --sapShadow: 0 2px 8px rgba(0,0,0,0.45);
+}
+
+/* ============================================================
+   Reset & Général
+============================================================ */
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    background: var(--sapBg);
+    color: var(--sapText);
+    font-family: "72", Arial, sans-serif;
+    font-size: 13px;
+    overflow-x: hidden;
+}
+
+.sapIcon {
+    font-family: "SAP-icons";
+    font-size: 18px;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* ============================================================
+   HEADER
+============================================================ */
+#appHeader {
+    height: 48px;
+    background: var(--sapPrimary);
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 16px;
+    font-size: 18px;
+    font-weight: 600;
+    box-shadow: var(--sapShadow);
+    position: relative;
+    z-index: 100;
+}
+
+/* ============================================================
+   TOOLBAR
+============================================================ */
+#toolbar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background: var(--sapCard);
+    border-bottom: 1px solid var(--sapSeparator);
+    height: 44px;
+    position: relative;   /* ✅ crée un contexte */
+    z-index: 1000;        /* ✅ AU‑DESSUS du tableau et du dashboard */
+}
+
+#toolbar input,
+#toolbar select {
+    height: 32px;
+    padding: 0 8px;
+    border-radius: 4px;
+    border: 1px solid var(--sapBorder);
+    background: #fafcfd;
+}
+
+/* Largeurs optimisées */
+#filterText { width: 180px; }
+#filterA, #filterN { width: 70px; }
+#filterT, #filterPos { width: 72px; }
+#filterStatus, #filterGest { width: 100px; }
+
+/* Boutons Fiori */
+.fioriBtn,
+.fioriTab,
+.fioriSmallBtn {
+    height: 32px;
+    padding: 0 12px;
+    background: var(--sapPrimary);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: background .15s;
+}
+
+.fioriBtn:hover,
+.fioriTab:hover,
+.fioriSmallBtn:hover {
+    background: var(--sapPrimaryHover);
+}
+
+/* ============================================================
+   TABLEAU
+============================================================ */
+#tableWrapper {
+    height: calc(100vh - 200px);
+    overflow-y: auto;
+    background: var(--sapCard);
+    border: 1px solid var(--sapBorder);
+    border-radius: 6px;
+}
+
+#tableStock {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#tableStock th {
+    position: sticky;
+    top: 0;
+    background: var(--sapPrimary);
+    color: white;
+    padding: 8px;
+    text-align: center;
+}
+
+#tableStock td {
+    padding: 8px;
+    border-bottom: 1px solid var(--sapSeparator);
+    text-align: center;
+    vertical-align: middle;
+}
+
+#tableStock td:nth-child(6) {
+    text-align: left;
+    width: 420px;
+}
+
+/* Article list */
+.article-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.article-item {
+    background: var(--sapTile);
+    border: 1px solid var(--sapBorder);
+    border-radius: 4px;
+    padding: 6px 8px;
+    font-size: 12px;
+}
+
+.article-item strong {
+    color: var(--sapPrimary);
+    font-weight: 600;
+}
+
+/* Highlight de ligne */
+.highlighted-row {
+    background: rgba(255, 230, 120, 0.35) !important;
+}
+
+/* Badges status */
+.badge {
+    padding: 4px 10px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    color: white;
+}
+
+.badge.plein { background: #2e7d32; }
+.badge.moyen { background: #f2c200; color:#333; }
+.badge.faible { background: #f57c00; }
+.badge.vide  { background: #d32f2f; }
+
+/* Pagination */
+#pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    padding: 8px;
+    background: var(--sapCard);
+    border-top: 1px solid var(--sapSeparator);
+}
+
+/* ===============================
+   DRAWER STATISTIQUES – CLEAN
+   =============================== */
+
+#sideStats {
+    position: fixed;
+    top: 0;
+    right: 0;
+
+    width: 260px;
+    height: 100vh;
+
+    background: #ffffff;
+    box-shadow: -4px 0 14px rgba(0,0,0,0.18);
+
+    padding: 16px;
+    box-sizing: border-box;
+
+    overflow-y: auto;
+
+    z-index: 5000;
+
+    transform: translateX(100%);
+    transition: transform 0.25s ease;
+}
+
+#sideStats.open {
+    transform: translateX(0);
+}
+
+#sideStats.closed {
+    transform: translateX(100%);
+}
+
+/* ============================================================
+   PLAN 2D
+============================================================ */
+#planView {
+    height: calc(100vh - 200px);
+    border: 1px solid var(--sapBorder);
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+}
+
+#tooltip {
+    position: absolute;
+    background: #2e3b4e;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    display: none;
+    pointer-events: none;
+}
+
+/* ============================================================
+   DASHBOARD
+============================================================ */
+#dashboardView {
+    padding: 20px;
+    overflow-y: auto;
+}
+
+#kpiDashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px,1fr));
+    gap: 12px;
+}
+
+.kpi-card {
+    background: var(--sapTile);
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: var(--sapShadow);
+    text-align: center;
+    font-weight: 600;
+}
+
+.dashboard-charts canvas {
+    max-height: 220px;
+}
+
+.chart-card {
+    background: var(--sapTile);
+    padding: 14px;
+    border-radius: 6px;
+    box-shadow: var(--sapShadow);
+    margin-bottom: 16px;
+}
+
+/* ============================================================
+   Tabs
+============================================================ */
+.tab {
+    display: none;
+    width: 100%;
+}
+
+.tab.active {
+    display: block;
+}
+/* ============================================================
+   TOOLBAR — actions principales (ligne Fiori)
+============================================================ */
+
+#toolbar {
+    position: relative;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    height: 44px;
+    padding: 0 12px;
+
+    background: var(--sapCard);
+    border-bottom: 1px solid var(--sapSeparator);
+}
+
+/* Champs & boutons Fiori */
+#toolbar input,
+#toolbar button,
+#toolbar label.fioriBtn {
+    height: 32px;
+}
+
+
+/* ============================================================
+   TOOLBAR FILTERS — zone des filtres (dropdowns)
+============================================================ */
+
+#toolbarFilters {
+    position: relative;
+    z-index: 900;
+
+    display: flex;
+    gap: 8px;
+    padding: 6px 12px;
+
+    background: var(--sapBg);
+    border-bottom: 1px solid var(--sapSeparator);
+}
+
+
+/* ============================================================
+   FILTRES MULTI — DROPDOWN CHECKBOXES
+============================================================ */
+
+/* Conteneur du filtre */
+.filter-group {
+    position: relative;
+    width: 120px;
+    font-size: 12px;
+}
+
+/* Titre cliquable (style champ Fiori) */
+.filter-title {
+    height: 32px;
+    line-height: 30px;
+
+    padding: 0 8px;
+    font-weight: 600;
+
+    background: #fafcfd;
+    border: 1px solid var(--sapBorder);
+    border-radius: 4px;
+
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Menu déroulant */
+.filter-content {
+    position: absolute;
+    top: calc(100% + 2px);
+    left: 0;
+
+    width: 100%;
+    max-height: 240px;
+
+    padding: 6px;
+
+    background: #ffffff;
+    border: 1px solid var(--sapBorder);
+    border-radius: 4px;
+    box-shadow: var(--sapShadow);
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    display: none;
+    z-index: 2000;
+}
+
+/* État ouvert */
+.filter-group.open .filter-content {
+    display: block;
+}
+
+/* Ligne checkbox */
+.filter-content label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+/* ============================================================
+   PLAN 2D
+============================================================ */
+
+#planView {
+    height: calc(100vh - 200px);
+    border: 1px solid var(--sapBorder);
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+}
+
+#plan2d {
+    display: block;
+}
+
+.rotation-cell {
+    font-weight: 600;
+}
+
+/* ===== Carte article ===== */
+
+.article-item {
+    background: #ffffff;
+    border: 1px solid var(--sapBorder);
+    border-radius: 6px;
+    padding: 8px;
+    margin-bottom: 6px;
+    font-size: 12px;
+}
+
+/* Ligne haute : article + rotation */
+.article-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.article-code {
+    font-weight: 600;
+    color: var(--sapPrimary);
+}
+
+/* ===== Badge rotation (carré à droite) ===== */
+
+.rotation-badge {
+    min-width: 42px;
+    height: 24px;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 11px;
+    line-height: 24px;
+    color: #000000;
+}
+
+/* codes couleur rotation */
+.rotation-none {
+    background: #9e9e9e;
+}
+
+.rotation-low {
+    background: #fb8c00;
+}
+
+.rotation-medium {
+    background: #fbc02d;
+    color: #333;
+}
+
+.rotation-high {
+    background: #43a047;
+}
+
+/* ===========================
+   Tooltip rotation
+=========================== */
+
+.rotation-badge {
+    position: relative;
+    cursor: help;
+}
+
+/* Tooltip caché */
+.rotation-badge::after {
+    content: attr(data-tooltip);
+    position: absolute;
+
+    bottom: 115%;
+    right: 0;
+
+    background: #2a2d34;
+    color: #fff;
+
+    padding: 6px 8px;
+    border-radius: 6px;
+
+    font-size: 11px;
+    line-height: 1.2;
+    white-space: pre-line;
+
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(4px);
+    transition: opacity .15s ease, transform .15s ease;
+
+    z-index: 4000;
+}
+
+/* Petite flèche */
+.rotation-badge::before {
+    content: "";
+    position: absolute;
+
+    bottom: 105%;
+    right: 10px;
+
+    border-width: 6px;
+    border-style: solid;
+    border-color: #2a2d34 transparent transparent transparent;
+
+    opacity: 0;
+    transition: opacity .15s ease;
+
+    z-index: 4000;
+}
+
+/* Affichage au survol */
+.rotation-badge:hover::after,
+.rotation-badge:hover::before {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.topRotationList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.topRotationList li {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 4px;
+    border-bottom: 1px solid #ddd;
+    font-size: 13px;
+}
+
+.topRotationList li .ref {
+    font-weight: 600;
+}
+
+.topRotationList li .rot {
+    font-weight: 700;
+}
+
+.topRotationList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.topRotationList li {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 4px;
+    border-bottom: 1px solid #ddd;
+    font-size: 13px;
+}
+
+.topRotationList .ref {
+    font-weight: 600;
+}
+
+.topRotationList .rot {
+    font-weight: 700;
+    color: #c62828; /* rouge = dormant */
+}
+
+.dashboard-lists {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.dashboardCard {
+    background: #fff;
+    border-radius: 6px;
+    padding: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table th,
+.data-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.data-table th {
+    background: #f5f5f5;
+}
+
+.bi-badge {
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 12px;
+    color: #fff;
+    white-space: nowrap;
+}
+
+.bi-score {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.bi-green  { background-color: #2e7d32; }
+.bi-orange { background-color: #f9a825; }
+.bi-red    { background-color: #c62828; }
+
+#toolbar {
+    position: relative;
+    z-index: 10;
+}
+
+#toolbarFilters {
+    position: relative;
+    z-index: 1;
+}
+
+.fioriTab {
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+.dashboard-mode {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.dashboard-mode select {
+    padding: 4px 8px;
+}
+
+/* ============================
+   ONGLET FAMILLE – VERSION NORMALE
+   ============================ */
+
+#familleView {
+    position: static;          /* ✅ comme les autres onglets */
+    z-index: auto;
+    background: #ffffff;
+
+    padding: 20px;
+    box-sizing: border-box;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* Table famille bien intégrée */
+#familleView table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#familleView th,
+#familleView td {
+    padding: 6px 8px;
+    border: 1px solid #e0e0e0;
+    white-space: nowrap;
+}
+
+/* =========================================================
+   STATISTIQUES – DRAWER + BOUTON + GRAPHIQUES (VERSION CLEAN)
+   Remplace entièrement l'ancien CSS des stats
+   ========================================================= */
+
+/* ---------- Anti scroll horizontal global ---------- */
+html, body {
+    overflow-x: hidden;
+}
+
+/* ---------- DRAWER STATISTIQUES ---------- */
+#sideStats {
+    position: fixed;
+    top: 0;
+    right: 0;
+
+    width: 340px;
+    height: 100vh;
+
+    background: #ffffff;
+    box-shadow: -4px 0 14px rgba(0,0,0,0.18);
+
+    padding: 16px;
+    box-sizing: border-box;
+
+    overflow-y: auto;     /* ✅ scroll vertical */
+    overflow-x: hidden;   /* ❌ jamais horizontal */
+
+    z-index: 5000;
+
+    transform: translateX(100%);
+    transition: transform 0.25s ease;
+}
+
+#sideStats.open {
+    transform: translateX(0);
+}
+
+#sideStats.closed {
+    transform: translateX(100%);
+}
+
+/* ---------- TITRES ---------- */
+#sideStats h2 {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0 0 14px 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+#sideStats h3 {
+    margin: 18px 0 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* ---------- CARTES KPI ---------- */
+.statItem {
+    position: relative;
+
+    background: #f6f8fb;
+    border: 1px solid #e2e6ea;
+    border-radius: 10px;
+
+    padding: 10px 12px;
+    margin-bottom: 10px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.statItem::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background: #0a6ed1;
+    border-radius: 10px 0 0 10px;
+}
+
+.statItem span {
+    font-size: 12px;
+    color: #555;
+}
+
+.statItem strong {
+    font-size: 15px;
+    font-weight: 700;
+    color: #0a6ed1;
+}
+
+.statItem.statSub {
+    background: #eef2f6;
+}
+
+/* =========================================================
+   GRAPHIQUE STATUT – VERSION BI ÉQUILIBRÉE
+   ========================================================= */
+
+#sideStats canvas {
+    display: block;
+
+    width: 100% !important;
+    max-width: 100%;
+
+    height: 140px !important;   /* ✅ hauteur NORMALE */
+    min-height: 140px;
+
+    background: #ffffff;
+    border-radius: 8px;
+
+    padding: 4px;
+    box-sizing: border-box;
+}
+
+/* Séparation visuelle avant le graphique */
+#sideStats h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Protection anti débordement */
+#sideStats * {
+    min-width: 0;
+    max-width: 100%;
+}
+/* ---------- BOUTON STATISTIQUES (PILULE PRO) ---------- */
+#statsToggle {
+    position: fixed;
+    top: 50px;                  /* ✅ position demandée */
+    right: -6px;                /* effet poignée */
+
+    height: 34px;
+    padding: 0 14px 0 12px;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    background: linear-gradient(
+        180deg,
+        #0a6ed1 0%,
+        #0854a0 100%
+    );
+
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+
+    border-radius: 17px 0 0 17px;
+    box-shadow:
+        -3px 0 8px rgba(0,0,0,0.25),
+        inset 0 1px 0 rgba(255,255,255,0.3);
+
+    cursor: pointer;
+    user-select: none;
+
+    z-index: 5100;
+}
+
+#statsToggle .sapIcon {
+    font-size: 14px;
+    line-height: 1;
+}
+
+#statsToggle:hover {
+    background: linear-gradient(
+        180deg,
+        #0b74de 0%,
+        #0960b5 100%
+    );
+}
+
+/* =========================================================
+   TABLES / CARTES – PROTECTION
+   ========================================================= */
+
+table {
+    max-width: 100%;
+}
+
+/* ✅ c’est le conteneur qui scrolle, pas la table */
+.table-wrapper {
+    overflow-x: auto;
+    overflow-y: visible;
+}
+
+/* Si une table est trop large, elle scrolle en vertical seulement */
+table, thead, tbody, tr, td, th {
+    box-sizing: border-box;
+}
+
+/* Texte long : pas de débordement */
+td > .cell-content,
+th > .cell-content {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: visible;
+    display: block;
+}
+
+.rotation-consolidated::after {
+    content: "⇆";
+    margin-left: 4px;
+    color: #e67e22;
+    font-size: 0.85em;
+    cursor: help;
+}
+
+.rotation-consolidated {
+    font-weight: 600;
+}
+
+.rot {
+    color: #000000;        /* ✅ texte noir lisible */
+    position: relative;
+    z-index: 1000;
+}
+
+
+.rotation-badge {
+    margin-left: 4px;
+    font-size: 0.75em;
+    color: #000000;
+    cursor: help;
+    position: relative;
+    z-index: 1001;
+}
+
+/* ✅ chiffre noir DANS le badge carré de rotation */
+.rot .bi-badge,
+.rot .rotation-low,
+.rot .rotation-medium,
+.rot .rotation-high {
+    color: #000000 !important;
+}
